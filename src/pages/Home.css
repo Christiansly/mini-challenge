@@ -1,0 +1,11 @@
+.student-name-input input {
+   margin-left: 1rem
+}
+
+.student-name-form {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 1rem;
+
+}
