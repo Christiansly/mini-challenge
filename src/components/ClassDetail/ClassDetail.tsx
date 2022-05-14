@@ -1,7 +1,8 @@
 import React from "react";
-import "./ClassDetail";
+import "./ClassDetail.css";
 
-function ClassDetail({ name, students }) {
+
+function ClassDetail({ name, students }: any) {
   return (
     <div className="class-detail">
       <ClassInfo header={"Name"} data={name} />
@@ -10,7 +11,7 @@ function ClassDetail({ name, students }) {
   );
 }
 
-function ClassInfo({ header, data }) {
+function ClassInfo({ header, data}: any) {
   return (
     <div className="class-detail-info">
       <h1>{header}</h1>

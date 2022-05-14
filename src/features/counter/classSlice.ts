@@ -26,7 +26,7 @@ import Airtable from "airtable";
 export interface classState {
   studentName: string;
   classRecords: Object[];
-  status: "idle" | "loading" | "failed";
+  status: "idle" | "loading" | "show";
 }
 
 const initialState: classState = {
@@ -80,7 +80,7 @@ export const classSlice = createSlice({
     },
     setClassRecords: (state, {payload}) => {
         state.classRecords = payload
-        state.status = "idle"
+        state.status = "show"
     }
     // Use the PayloadAction type to declare the contents of `action.payload`
     // incrementByAmount: (state, action: PayloadAction<number>) => {
@@ -127,6 +127,3 @@ export const selectStatus = (state: RootState) => state.class.status;
 
 export default classSlice.reducer;
  
-const getData = async () => {
-
-}

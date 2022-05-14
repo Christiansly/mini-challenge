@@ -12,20 +12,21 @@ function Login() {
   const dispatch = useAppDispatch();
   const [studentName, setStudentName] = useState("");
   const onLogin = async (e: any) => {
+    const name = studentName[0].toUpperCase() + studentName.slice(1);
     e.preventDefault();
     // dispatch(login(studentName));
     dispatch(setStatus("loading"));
     base("Students")
       .select({
-        filterByFormula: `Name = "${studentName}"`,
+        filterByFormula: `Name = "${name}"`,
         // fields: ["Classes"],
         view: "Grid view",
       })
       .eachPage(
         (records: any, fetchNextPage: any) => {
           console.log(records);
-
-          base("Classes")
+          if(records.length > 0) {
+            base("Classes")
             .select({
               filterByFormula:
                 "OR(" +
@@ -39,27 +40,34 @@ function Login() {
             .eachPage(function page(records: any, fetchNextPage: any) {
               console.log(records);
               let refinedRecords: any = [];
+              // console.log(records);
               records.map((rec: any) =>
                 refinedRecords.push({
                   className: rec.fields.Name,
                   students: rec.fields.Studentstext,
                 })
               );
+
               dispatch(setClassRecords(refinedRecords));
               // setUpdates(records);
               // return records;
-              console.log(refinedRecords);
+              // console.log(refinedRecords);
 
               // console.log(state.classRecords, "ree")
               // fetchNextPage();
               // return classRecord;
             });
+          } else {
+            dispatch(setStatus("show"))
+          }
+          
           // fetchNextPage();
         },
         function done(error) {
           return;
         }
       );
+      // dispatch(setStatus("show"));
     // console.log(classRecord, "hello");
   };
 
