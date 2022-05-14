@@ -3,13 +3,8 @@ import "./Home.css";
 // import { useAppDispatch, useAppSelector } from "../app/hooks";
 // import { selectStatus, login } from "../features/counter/classSlice";
 import Airtable from "airtable";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import {
-  selectStatus,
-  login,
-  setStatus,
-  setClassRecords,
-} from "../features/counter/classSlice";
+import { useAppDispatch } from "../app/hooks";
+import { setStatus, setClassRecords } from "../features/counter/classSlice";
 const base = new Airtable({ apiKey: "keyBWm4AVqjzrCj6a" }).base(
   "appX1CDf9NSxNvfRf"
 );
@@ -19,7 +14,7 @@ function Login() {
   const onLogin = async (e: any) => {
     e.preventDefault();
     // dispatch(login(studentName));
-    dispatch(setStatus("loading"))
+    dispatch(setStatus("loading"));
     base("Students")
       .select({
         filterByFormula: `Name = "${studentName}"`,

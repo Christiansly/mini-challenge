@@ -1,9 +1,9 @@
-import React from 'react'
-
+import React from "react";
+import { useAppDispatch } from "../app/hooks";
+import { setStatus, setClassRecords } from "../features/counter/classSlice";
 function ClassDetails() {
-  return (
-    <div>ClassDetails</div>
-  )
+  const dispatch = useAppDispatch();
+  return <div>{}</div>;
 }
 
-export default ClassDetails
+export default ClassDetails;

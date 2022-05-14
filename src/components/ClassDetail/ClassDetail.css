@@ -1,0 +1,15 @@
+.class-detail {
+  display: flex;
+  max-width: 180px;
+  height: 100px;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.class-detail-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-between;
+}
