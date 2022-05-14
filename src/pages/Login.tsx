@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./Home.css";
-// import { useAppDispatch, useAppSelector } from "../app/hooks";
-// import { selectStatus, login } from "../features/counter/classSlice";
 import Airtable from "airtable";
 import { useAppDispatch } from "../app/hooks";
-import { setStatus, setClassRecords } from "../features/counter/classSlice";
+import { setStatus, setClassRecords } from "../features/class/classSlice";
 const base = new Airtable({ apiKey: "keyBWm4AVqjzrCj6a" }).base(
   "appX1CDf9NSxNvfRf"
 );
@@ -14,61 +12,47 @@ function Login() {
   const onLogin = async (e: any) => {
     const name = studentName[0].toUpperCase() + studentName.slice(1);
     e.preventDefault();
-    // dispatch(login(studentName));
     dispatch(setStatus("loading"));
     base("Students")
       .select({
         filterByFormula: `Name = "${name}"`,
-        // fields: ["Classes"],
         view: "Grid view",
       })
       .eachPage(
         (records: any, fetchNextPage: any) => {
           console.log(records);
-          if(records.length > 0) {
+          if (records.length > 0) {
             base("Classes")
-            .select({
-              filterByFormula:
-                "OR(" +
-                records[0].fields.Classes.map((id: string) => {
-                  return `RECORD_ID()='${id}'`;
-                }).join(",") +
-                ")",
-              fields: ["Studentstext", "Name"],
-              view: "Grid view",
-            })
-            .eachPage(function page(records: any, fetchNextPage: any) {
-              console.log(records);
-              let refinedRecords: any = [];
-              // console.log(records);
-              records.map((rec: any) =>
-                refinedRecords.push({
-                  className: rec.fields.Name,
-                  students: rec.fields.Studentstext,
-                })
-              );
+              .select({
+                filterByFormula:
+                  "OR(" +
+                  records[0].fields.Classes.map((id: string) => {
+                    return `RECORD_ID()='${id}'`;
+                  }).join(",") +
+                  ")",
+                fields: ["Studentstext", "Name"],
+                view: "Grid view",
+              })
+              .eachPage(function page(records: any, fetchNextPage: any) {
+                console.log(records);
+                let refinedRecords: any = [];
+                records.map((rec: any) =>
+                  refinedRecords.push({
+                    className: rec.fields.Name,
+                    students: rec.fields.Studentstext,
+                  })
+                );
 
-              dispatch(setClassRecords(refinedRecords));
-              // setUpdates(records);
-              // return records;
-              // console.log(refinedRecords);
-
-              // console.log(state.classRecords, "ree")
-              // fetchNextPage();
-              // return classRecord;
-            });
+                dispatch(setClassRecords(refinedRecords));
+              });
           } else {
-            dispatch(setStatus("show"))
+            dispatch(setStatus("show"));
           }
-          
-          // fetchNextPage();
         },
         function done(error) {
           return;
         }
       );
-      // dispatch(setStatus("show"));
-    // console.log(classRecord, "hello");
   };
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { selectClassRecords, logout } from "../features/counter/classSlice";
+import { selectClassRecords, logout } from "../features/class/classSlice";
 import ClassDetail from "../components/ClassDetail/ClassDetail";
 import "./ClassDetails.css"
 function ClassDetails() {

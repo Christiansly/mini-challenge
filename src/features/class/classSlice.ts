@@ -1,28 +1,6 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState, AppThunk } from "../../app/store";
-import { fetchCount } from "./counterAPI";
-import Airtable from "airtable";
+import {  createSlice } from "@reduxjs/toolkit";
+import { RootState} from "../../app/store";
 
-// const getClassStudents = (ids: string[]) => {
-//   base("Classes")
-//     .select({
-//       filterByFormula:
-//         "OR(" +
-//         ids
-//           .map((id: string) => {
-//             return `RECORD_ID()='${id}'`;
-//           })
-//           .join(",") +
-//         ")",
-//       fields: ["Studentstext", "Name"],
-//       view: "Grid view",
-//     })
-//     .eachPage((records: any, fetchNextPage: any) => {
-//       console.log(records);
-//       // setUpdates(records);
-//       fetchNextPage();
-//     });
-// };
 export interface classState {
   studentName: string;
   classRecords: Object[];
