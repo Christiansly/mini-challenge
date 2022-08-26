@@ -3,7 +3,7 @@ import "./Home.css";
 import Airtable from "airtable";
 import { useAppDispatch } from "../app/hooks";
 import { setStatus, setClassRecords } from "../features/class/classSlice";
-const base = new Airtable({ apiKey: "keyBWm4AVqjzrCj6a" }).base(
+const base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_KEY }).base(
   "appX1CDf9NSxNvfRf"
 );
 function Login() {
